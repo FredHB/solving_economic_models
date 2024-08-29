@@ -38,7 +38,7 @@ class Grid:
 
         return Pi, e
 
-    def stationary_dist(self, Pi):
+    def stationary_dist(Pi):
         Pi_stationary = Pi.copy()
         eps = 1
         while eps > 10E-12:
@@ -55,14 +55,14 @@ class Grid:
 
         return Pi_stationary
 
-    def normalize_y(self, log_y, pi_ss): # make y have unit mean
+    def normalize_y(log_y, pi_ss): # make y have unit mean
         y = np.exp(log_y)
         y = y / np.vdot(y, pi_ss)
         return y
 
-
     # write a function which discretizes the asset space
-    def discretize_assets(self, amin, amax, n_a):
+    def discretize_assets(self):
+        amin, amax, n_a = self.min_a, self.max_a, self.n_a
         # find ubar 
         ubar = np.log(np.log(amax - amin + 1)+1)
         # make linar grid for the u's
