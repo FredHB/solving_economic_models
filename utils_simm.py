@@ -13,7 +13,7 @@ class Grid:
         self.Pi, self.grid_y = self.rouwenhorst(n_y, rho, sd_log_y)
         self.pi_ss = self.stationary_dist(self.Pi)[0,:]
         self.grid_y = self.normalize_y(self.grid_y, self.pi_ss)
-        self.grid_a = self.discretize_assets(min_a, max_a, n_a)
+        self.grid_a = self.discretize_assets()
 
     # sigma is the sd of the error, e_t
     def rouwenhorst(self, n, rho, sd_log_y):
@@ -38,7 +38,7 @@ class Grid:
 
         return Pi, e
 
-    def stationary_dist(Pi):
+    def stationary_dist(self, Pi):
         Pi_stationary = Pi.copy()
         eps = 1
         while eps > 10E-12:
@@ -55,7 +55,7 @@ class Grid:
 
         return Pi_stationary
 
-    def normalize_y(log_y, pi_ss): # make y have unit mean
+    def normalize_y(self, log_y, pi_ss): # make y have unit mean
         y = np.exp(log_y)
         y = y / np.vdot(y, pi_ss)
         return y
